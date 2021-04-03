@@ -6,3 +6,28 @@ shell:
   program: /usr/bin/zsh
   args:
     - -l
+    - -c
+    - "tmux attach || tmux"
+
+key_bindings:
+  - { key: D,        mods: Super,       chars: "\x06\x76" }
+  - { key: D,        mods: Super|Shift, chars: "\x06\x73" }
+  - { key: W,        mods: Super,       chars: "\x06\x78" }
+  - { key: H,        mods: Super,       chars: "\x06\x68" }
+  - { key: J,        mods: Super,       chars: "\x06\x6a" }
+  - { key: K,        mods: Super,       chars: "\x06\x6b" }
+  - { key: L,        mods: Super,       chars: "\x06\x6c" }
+  - { key: T,        mods: Super,       chars: "\x06\x63" }
+  - { key: Key1,     mods: Super,       chars: "\x06\x31" }
+  - { key: Key2,     mods: Super,       chars: "\x06\x32" }
+  - { key: Key3,     mods: Super,       chars: "\x06\x33" }
+  - { key: Key4,     mods: Super,       chars: "\x06\x34" }
+  - { key: Key5,     mods: Super,       chars: "\x06\x35" }
+  - { key: Key6,     mods: Super,       chars: "\x06\x36" }
+  - { key: Key7,     mods: Super,       chars: "\x06\x37" }
+  - { key: Key8,     mods: Super,       chars: "\x06\x38" }
+  - { key: Key9,     mods: Super,       chars: "\x06\x39" }
+  - { key: Left,     mods: Super,       chars: "\x06\x48" }
+  - { key: Down,     mods: Super,       chars: "\x06\x4a" }
+  - { key: Up,       mods: Super,       chars: "\x06\x4b" }
+  - { key: Right,    mods: Super,       chars: "\x06\x4c" }

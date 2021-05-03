@@ -43,3 +43,7 @@ alias tf='terraform'
 function tolab(){
 	ssh -i /home/locmai/.ssh/id_rsa_lmlabs node0$1
 }
+
+function bwgen() {
+    bw generate -u -l -n -s --length 14 | pbcopy
+}

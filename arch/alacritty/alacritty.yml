@@ -1,0 +1,67 @@
+window:
+  dimensions:
+    columns: 160
+    lines: 40
+
+  # Adds this many blank pixels of padding around the window
+  # Units are physical pixels; this is not DPI aware.
+  # (change requires restart)
+  padding:
+    x: 2
+    y: 2
+  decorations: full
+font:
+  normal:
+    family: MesloLGS NF
+    style: Regular
+  size: 12
+  offset:
+    x: 0
+    y: 10
+mouse:
+  hide_when_typing: true
+
+cursor:
+  style:
+    shape: Underline
+
+custom_cursor_colors: true
+
+colors:
+  name: 3024 (dark)
+  author: Chris Kempson
+  primary:
+    background: "#090300"
+    foreground: "#a5a2a2"
+  cursor:
+    text: "#090300"
+    cursor: "#a5a2a2"
+  normal:
+    black: "#090300"
+    red: "#db2d20"
+    green: "#01a252"
+    yellow: "#fded02"
+    blue: "#01a0e4"
+    magenta: "#a16a94"
+    cyan: "#b5e4f4"
+    white: "#a5a2a2"
+  bright:
+    black: "#5c5855"
+    red: "#db2d20"
+    green: "#01a252"
+    yellow: "#fded02"
+    blue: "#01a0e4"
+    magenta: "#a16a94"
+    cyan: "#b5e4f4"
+    white: "#f7f7f7"
+
+bell:
+  animation: EaseOutExpo
+  duration: 0
+
+live_config_reload: true
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l

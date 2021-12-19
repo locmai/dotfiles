@@ -7,5 +7,7 @@
     "[python]": {
        "editor.insertSpaces": true,
        "editor.tabSize": 4  
-    }
+    },
+    "python.autoComplete.extraPaths": ["__pypackages__/<major.minor>/lib"],
+    "python.analysis.extraPaths": ["__pypackages__/<major.minor>/lib"]
 } 

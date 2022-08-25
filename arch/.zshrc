@@ -1,0 +1,50 @@
+# Plugin manager
+source $HOME/.zsh/zinit/zinit.zsh \
+    || (git clone --depth 1 https://github.com/zdharma-continuum/zinit.git $HOME/.zsh/zinit && exec zsh)
+
+# Theme
+zinit ice depth=1 atload="source $HOME/.p10k.zsh"
+zinit light romkatv/powerlevel10k
+
+# Plugin list
+zinit wait lucid light-mode depth=1 nocd for \
+    atinit='zicompinit' zdharma-continuum/fast-syntax-highlighting \
+    atload='_zsh_autosuggest_start' zsh-users/zsh-autosuggestions \
+    atload='MODE_CURSOR_VIINS="bar"; vim-mode-cursor-init-hook' softmoth/zsh-vim-mode \
+    hlissner/zsh-autopair
+zinit wait lucid is-snippet for \
+    https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh \
+    https://github.com/ahmetb/kubectl-aliases/blob/master/.kubectl_aliases \
+    https://github.com/ajeetdsouza/zoxide/blob/main/zoxide.plugin.zsh \
+    as='completion' https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
+
+# Options
+setopt \
+    autocd \
+    autopushd \
+    histignorealldups \
+    histignorespace \
+    sharehistory
+
+# Disable right prompt indent
+ZLE_RPROMPT_INDENT=0
+
+# History
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Key bindings
+export KEYTIMEOUT=1
+bindkey '^[[P' delete-char
+bindkey '^?' backward-delete-char
+
+# Aliases
+source $HOME/.aliases
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval $(thefuck --alias)
+
+export KUBECONFIG=~/Workspace/humble/metal/kubeconfig.prod.yaml

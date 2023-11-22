@@ -160,4 +160,13 @@ return require("lazy").setup({
         end,
     },
     -- }}}
+    -- {{{ Keymaps
+    {
+        "https://github.com/folke/which-key.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("which-key").register(require("keymaps"))
+        end,
+    },
+    -- }}}
 })

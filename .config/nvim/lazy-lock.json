@@ -12,5 +12,6 @@
   "nvim-cmp": { "branch": "main", "commit": "5dce1b778b85c717f6614e3f4da45e9f19f54435" },
   "nvim-lspconfig": { "branch": "master", "commit": "bb8e3dfbe10d80c294bb609c4bb4bba3ecdfbfe2" },
   "nvim-treesitter": { "branch": "master", "commit": "783e5fc3079680b307e8ac518935317907e71a59" },
-  "oil.nvim": { "branch": "master", "commit": "f72b9b2637eec2b3db8255c196aa4bf11231af81" }
+  "oil.nvim": { "branch": "master", "commit": "f72b9b2637eec2b3db8255c196aa4bf11231af81" },
+  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
 }

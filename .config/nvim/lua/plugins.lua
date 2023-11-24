@@ -159,6 +159,14 @@ return require("lazy").setup({
             })
         end,
     },
+
+    {
+        "https://github.com/numToStr/Comment.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("Comment").setup()
+        end,
+    },
     -- }}}
     -- {{{ Keymaps
     {

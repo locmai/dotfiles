@@ -1,0 +1,50 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+{
+  "vim_mode": false, // pain_mode off
+  // They/theme
+  "theme": "Ayu Light", // Flash bang here we go
+  "buffer_font_size": 15,
+  "preferred_line_length": 80,
+  "soft_wrap": "preferred_line_length",
+  // Editor's behaviors
+  "format_on_save": "on",
+  "autosave": "on_focus_change",
+  //LSP and language overrides
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "checkOnSave": {
+          "command": "clippy" // rust-analyzer.checkOnSave.command
+        }
+      }
+    },
+    "gopls": {
+      "initialization_options": {
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "compositeLiteralTypes": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    }
+  },
+  "language_overrides": {
+    "python": {
+      "tab_size": 4,
+      "preferred_line_length": 128, // Override 79 characters from PEP-8 to 128 ultrawide monitor FTW?
+    },
+    "JSON": {
+      "preferred_line_length": 128, // Look at python
+    },
+    "YAML": {
+      "tab_size": 2
+    }
+  }
+}

@@ -1,0 +1,6 @@
+global:
+  deployment: ag1
+
+thresholds:
+  ag1: 3
+  us2: 5

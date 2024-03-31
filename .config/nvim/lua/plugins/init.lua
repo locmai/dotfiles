@@ -1,7 +1,7 @@
 return {
     {
         "stevearc/conform.nvim",
-        event = 'BufWritePre', -- uncomment for format on save
+        event = 'BufWritePre',
         config = function()
             require "configs.conform"
         end,
@@ -20,7 +20,7 @@ return {
         opts = {
             ensure_installed = {
                 "lua-language-server", "stylua",
-                "html-lsp", "css-lsp", "prettier"
+                "prettier"
             },
         },
     },

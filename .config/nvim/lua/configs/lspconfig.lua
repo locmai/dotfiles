@@ -30,7 +30,6 @@ lspconfig.rust_analyzer.setup {
         importPrefix = "by_self",
       },
       cargo = {
-        loadOutDirsFromCheck = true,
         features = "all",
       },
       procMacro = {

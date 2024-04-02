@@ -22,19 +22,21 @@ lspconfig.tsserver.setup {
   capabilities = capabilities,
 }
 
-lspconfig.rust_analyzer.setup {
-  settings = {
-    ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
-      },
-      cargo = {
-        features = "all",
-      },
-      procMacro = {
-        enable = true,
+vim.g.rustaceanvim = {
+  -- Plugin configuration
+  tools = {},
+  -- LSP configuration
+  server = {
+    on_attach = on_attach,
+    default_settings = {
+      -- rust-analyzer language server configuration
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+        },
       },
     },
   },
+  -- DAP configuration
+  dap = {},
 }

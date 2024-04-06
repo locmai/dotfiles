@@ -1,6 +1,5 @@
 alias z='zed'
 alias v='nvim'
-
 alias diff='git diff --no-index'
 
 # git

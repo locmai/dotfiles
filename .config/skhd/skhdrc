@@ -1,0 +1,9 @@
+alt - d : yabai -m window --toggle zoom-parent
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+alt - p : yabai -m window --toggle sticky --toggle pip
+
+alt + h : yabai -m window --focus west
+alt + j : yabai -m window --focus south
+alt + k : yabai -m window --focus north
+alt + l : yabai -m window --focus east

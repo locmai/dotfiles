@@ -4,7 +4,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = { "html", "cssls", "gopls", "ruff-lsp", "helm-ls" }
+local servers = { "html", "cssls", "gopls" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -33,6 +33,11 @@ vim.g.rustaceanvim = {
       ["rust-analyzer"] = {
         cargo = {
           allFeatures = true,
+        },
+        diagnostics = {
+          enable = true,
+          disabled = { "unresolved-proc-macro" },
+          enableExperimental = true,
         },
       },
     },

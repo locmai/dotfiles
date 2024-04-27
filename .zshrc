@@ -32,6 +32,8 @@ source ~/.p10k.zsh
 
 export PATH=$PATH:$HOME/google-cloud-sdk/bin:$HOME/go/bin
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/libpq/lib"
+export CPPFLAGS="-I/usr/local/opt/libpq/include"
 
 # Aliases
 source $HOME/.aliases
@@ -40,4 +42,5 @@ source $HOME/.aliases
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
+
 

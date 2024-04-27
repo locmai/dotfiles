@@ -144,6 +144,16 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 
+export PATH=$PATH:$HOME/google-cloud-sdk/bin:$HOME/go/bin
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/llvm/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include"
+# export PATH="/usr/local/opt/libpq/bin:$PATH"
+# export LDFLAGS="-L/usr/local/opt/libpq/lib"
+# export CPPFLAGS="-I/usr/local/opt/libpq/include"
+
+export PATH="/usr/local/opt/libpq/bin:$PATH"
+# Aliases
 source $HOME/.aliases
 source $HOME/.aliases_axon
 # Google Cloud

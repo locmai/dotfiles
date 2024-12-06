@@ -1,0 +1,12 @@
+# Define the path that `amtool` can find your `alertmanager` instance
+alertmanager.url: "https://cortex.farm.va.main.ag1.axon.us/api/prom/alertmanager/"
+
+
+# Force amtool to give you an error if you don't include a comment on a silence
+comment_required: true
+
+# Set a default output format. (unset defaults to simple)
+output: extended
+
+# Set a default receiver, take pcg-alert of the OBID team as an example
+receiver: team-sre-obid-slack

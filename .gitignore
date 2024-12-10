@@ -1,7 +1,6 @@
 *
 
 !.gitignore
-
+.config/github-copilot/hosts.json
 !.config/
 Workspace/
-.config/github-copilot/hosts.json

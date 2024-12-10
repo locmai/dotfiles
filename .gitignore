@@ -4,4 +4,4 @@
 
 !.config/
 Workspace/
-Workspace/
+.config/github-copilot/hosts.json

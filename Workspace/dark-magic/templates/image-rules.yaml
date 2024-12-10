@@ -1,9 +1,0 @@
-# templates/configmap.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: my-configmap
-data:
-  {{- $key := .Values.global.deployment }}
-  {{- $value := index .Values.thresholds $key }}
-  threshold_of_{{ $key }}: {{ $value | quote }}

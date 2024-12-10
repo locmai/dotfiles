@@ -7,7 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/Library/Python/3.11/bin:$HOME/.local/bin:$PATH
-export PATH=$PATH:/usr/local/share/dotnet:$HOME/go/bin/
+export PATH=$PATH:/usr/local/share/dotnet:$HOME/go/bin/:/run/current-system/sw/bin
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

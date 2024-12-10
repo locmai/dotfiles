@@ -19,13 +19,7 @@ return {
       },
     },
   },
-<<<<<<< HEAD
-  {
-    "github/copilot.vim",
-  },
-=======
   { "github/copilot.vim" },
->>>>>>> 511bd3d (update nvim)
   {
     "telescope.nvim",
     dependencies = {

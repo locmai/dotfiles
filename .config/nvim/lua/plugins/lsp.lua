@@ -35,7 +35,7 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
-        python = { "isort", "ruff_format" },
+        python = { "ruff format" },
         rust = { "rustfmt", lsp_format = "fallback" },
         hcl = { "hclfmt" },
         nix = { "alejandra" },
@@ -46,7 +46,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = {
-      "g",
+      "go",
       "lua",
       "vim",
       "vimdoc",

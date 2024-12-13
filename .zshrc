@@ -41,8 +41,10 @@ export CPPFLAGS="-I/usr/local/opt/llvm/include"
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 # Aliases
 source $HOME/.aliases
+source $HOME/.aliases_axon
 
 # Run `time ZSH_DEBUGRC=1 zsh -i -c exit` to debug
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
+

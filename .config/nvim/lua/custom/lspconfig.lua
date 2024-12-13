@@ -71,7 +71,7 @@ M.defaults = function()
     "html",
     "cssls",
     "rust_analyzer",
-    "ruff_lsp",
+    "pylsp",
     "nil_ls",
     "jsonnet_ls",
     "yamlls",

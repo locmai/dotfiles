@@ -21,6 +21,7 @@ return {
         "nil",
         "jsonnet-language-server",
         "terraform-ls",
+        "omnisharp",
       })
     end,
   },

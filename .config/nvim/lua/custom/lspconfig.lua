@@ -78,6 +78,7 @@ M.defaults = function()
     "gopls",
     "dagger",
     "terraformls",
+    "omnisharp",
   }
 
   for _, lsp in ipairs(servers) do

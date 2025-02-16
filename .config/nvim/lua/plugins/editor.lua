@@ -6,8 +6,6 @@ return {
       keymaps = {
         -- Open blame window
         blame = "<leader>gb",
-        -- Open file/folder in git repository
-        -- browse = "<Leader>go",
       },
     },
   },

@@ -12,7 +12,10 @@
     "context": "Editor && (vim_mode == normal || vim_mode == visual)",
     "bindings": {
       ";": ["workspace::SendKeystrokes", ":"],
-      "s": "vim::PushSneak"
+      "s": "vim::PushSneak",
+      "space g b": "editor::ToggleGitBlame",
+      "g d": "editor::GoToDefinition",
+      "g D": "editor::GoToDeclaration"
     }
   },
   {

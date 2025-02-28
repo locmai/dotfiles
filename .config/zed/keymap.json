@@ -1,0 +1,26 @@
+[
+  {
+    "bindings": {}
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space e": "workspace::ToggleRightDock",
+      ";": ["workspace::SendKeystrokes", ":"],
+      "space s g": "workspace::NewSearch",
+      "space space": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "ctrl-p": "editor::ConfirmCompletion"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "space e": "workspace::ToggleRightDock"
+    }
+  }
+]

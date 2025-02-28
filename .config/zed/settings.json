@@ -4,16 +4,16 @@
 // documentation: https://zed.dev/docs/configuring-zed
 // from the command palette or from `Zed` application menu.
 {
-  "vim_mode": false, // pain_mode on
-  // They/theme
-  "theme": "One Dark", // Flash bang here we go
+  "vim_mode": true, // pain_mode on
+  "theme": "Gruvbox Dark",
   "buffer_font_size": 15,
   "preferred_line_length": 100,
   "soft_wrap": "preferred_line_length",
-  // Editor's behaviors
   "format_on_save": "on",
   "autosave": "on_focus_change",
-  //LSP and language overrides
+  "project_panel": {
+    "dock": "right"
+  },
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {

@@ -12,8 +12,14 @@
   "format_on_save": "on",
   "autosave": "on_focus_change",
   "project_panel": {
-    "dock": "right"
+    "dock": "right",
+    "git_status": true
   },
+  "assistant": {
+    "dock": "left",
+    "version": "1"
+  },
+  "outline_panel": {},
   "tab_bar": {
     "show": false
   },
@@ -105,5 +111,9 @@
       "tab_size": 2,
       "format_on_save": "off"
     }
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
   }
 }

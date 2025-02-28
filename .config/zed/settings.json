@@ -14,7 +14,42 @@
   "project_panel": {
     "dock": "right"
   },
+  "tab_bar": {
+    "show": false
+  },
+  "auto_install_extensions": {
+    "ansible": true,
+    "csharp": true,
+    "dockerfile": true,
+    "helm": true,
+    "lua": true,
+    "terraform": true,
+    "rego": true,
+    "ruff": true,
+    "nix": true,
+    "zig": true
+  },
   "lsp": {
+    "ansible-language-server": {
+      "settings": {
+        "ansible": {
+          "path": "ansible"
+        },
+        "executionEnvironment": {
+          "enabled": false
+        },
+        "python": {
+          "interpreterPath": "python3"
+        },
+        "validation": {
+          "enabled": true,
+          "lint": {
+            "enabled": true,
+            "path": "ansible-lint"
+          }
+        }
+      }
+    },
     "rust-analyzer": {
       "initialization_options": {
         "checkOnSave": {
@@ -37,12 +72,31 @@
     },
     "yaml": {
       "format_on_save": "off"
+    },
+    "yaml-language-server": {
+      "settings": {
+        "yaml": {
+          "keyOrdering": false
+        }
+      }
+    },
+    "ruff": {
+      "initialization_options": {
+        "settings": {
+          // Ruff server settings goes here
+          "lineLength": 80,
+          "lint": {
+            "extendSelect": ["I"]
+          }
+        }
+      }
     }
   },
-  "language_overrides": {
-    "python": {
+  "languages": {
+    "Python": {
+      "language_servers": ["ruff"],
       "tab_size": 4,
-      "preferred_line_length": 128 // Override 79 characters from PEP-8 to 128 ultrawide monitor FTW?
+      "preferred_line_length": 128 // Override 79 characters from PEP-8 to 128 ultrawide monitor
     },
     "JSON": {
       "preferred_line_length": 128 // Look at python

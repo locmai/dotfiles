@@ -1,26 +1,35 @@
 [
   {
-    "bindings": {}
-  },
-  {
-    "context": "Editor && vim_mode == normal",
+    "context": "(Editor || ProjectPanel) && vim_mode != insert",
     "bindings": {
       "space e": "workspace::ToggleRightDock",
+      "space space": "file_finder::Toggle",
+      "space f f": "file_finder::Toggle",
+      "space s g": "workspace::NewSearch"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual)",
+    "bindings": {
       ";": ["workspace::SendKeystrokes", ":"],
-      "space s g": "workspace::NewSearch",
-      "space space": "file_finder::Toggle"
+      "s": "vim::PushSneak"
     }
   },
   {
-    "context": "Editor && showing_completions",
+    "context": "Editor && edit_prediction",
     "bindings": {
-      "ctrl-p": "editor::ConfirmCompletion"
+      // This is identical to the binding in the base keymap, but the vim bindings above to
+      // "vim::Tab" shadow it, so it needs to be bound again.
+      "ctrl-p": "editor::AcceptEditPrediction"
     }
   },
   {
-    "context": "Dock",
+    "context": "ProjectPanel",
     "bindings": {
-      "space e": "workspace::ToggleRightDock"
+      "a": "project_panel::NewFile",
+      "b": "project_panel::Rename",
+      "d": "project_panel::Delete",
+      "r": "project_panel::Rename"
     }
   }
 ]

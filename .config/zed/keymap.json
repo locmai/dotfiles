@@ -18,8 +18,6 @@
   {
     "context": "Editor && edit_prediction",
     "bindings": {
-      // This is identical to the binding in the base keymap, but the vim bindings above to
-      // "vim::Tab" shadow it, so it needs to be bound again.
       "ctrl-p": "editor::AcceptEditPrediction"
     }
   },

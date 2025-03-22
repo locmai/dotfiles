@@ -5,7 +5,15 @@
       "space e": "workspace::ToggleRightDock",
       "space space": "file_finder::Toggle",
       "space f f": "file_finder::Toggle",
-      "space s g": "workspace::NewSearch"
+      "space s g": "workspace::NewSearch",
+      "space 1": ["pane::ActivateItem", 0],
+      "space 2": ["pane::ActivateItem", 1],
+      "space 3": ["pane::ActivateItem", 2],
+      "space 4": ["pane::ActivateItem", 3],
+      "space 5": "pane::ActivateNextItem",
+      "space 6": "pane::ActivateLastItem",
+      "space -": "pane::SplitDown",
+      "space \\": "pane::SplitRight"
     }
   },
   {
@@ -15,7 +23,8 @@
       "s": "vim::PushSneak",
       "space g b": "editor::ToggleGitBlame",
       "g d": "editor::GoToDefinition",
-      "g D": "editor::GoToDeclaration"
+      "g D": "editor::GoToDeclaration",
+      "g c c": "editor::ToggleComments"
     }
   },
   {

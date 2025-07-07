@@ -1,13 +1,14 @@
 return {
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    keys = {
-      { "<leader>e", "<cmd>Neotree reveal float toggle<cr>" },
-    },
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
+    "folke/snacks.nvim",
+    opts = {
+      terminal = {
+        win = {
+          style = "float",
+          width = math.floor(vim.o.columns * 0.5),
+          height = math.floor(vim.o.lines * 0.5),
+        },
+      },
     },
   },
   {
@@ -26,6 +27,14 @@ return {
       window = {
         position = "float",
       },
+    },
+    keys = {
+      { "<leader>e", "<cmd>Neotree reveal float toggle<cr>" },
+    },
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
     },
   },
   { "github/copilot.vim" },

@@ -71,14 +71,15 @@ M.defaults = function()
     "html",
     "cssls",
     "rust_analyzer",
-    "pylsp",
     "nil_ls",
     "jsonnet_ls",
-    "yamlls",
     "gopls",
     "dagger",
     "terraformls",
     "omnisharp",
+    "ruff",
+    "helm_ls",
+    "yamlls",
   }
 
   for _, lsp in ipairs(servers) do

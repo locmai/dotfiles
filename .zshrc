@@ -48,3 +48,5 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
 
+source $HOME/random_bullshit.sh
+export PATH=$PATH:/Users/lmai/.local/bin

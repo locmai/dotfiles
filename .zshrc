@@ -24,8 +24,6 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source ~/.p10k.zsh
 
@@ -34,9 +32,6 @@ export PATH=$PATH:$HOME/google-cloud-sdk/bin:$HOME/go/bin
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/llvm/lib"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
-# export PATH="/usr/local/opt/libpq/bin:$PATH"
-# export LDFLAGS="-L/usr/local/opt/libpq/lib"
-# export CPPFLAGS="-I/usr/local/opt/libpq/include"
 
 export PATH="/usr/local/opt/libpq/bin:$PATH"
 # Aliases

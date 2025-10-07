@@ -20,3 +20,5 @@ alias gL='git log -p'
 alias gt='git ls-tree -r "$(git rev-parse --abbrev-ref HEAD)" --name-only | tree --fromfile'
 
 alias spire='kubectl exec -n spire-server spire-server-0 -- /opt/spire/bin/spire-server'
+alias start-gp='launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*'
+alias stop-gp='launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*'

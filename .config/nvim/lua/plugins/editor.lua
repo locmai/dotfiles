@@ -31,9 +31,9 @@ return {
     keys = {
       { "<leader>e", "<cmd>Neotree reveal float toggle<cr>" },
     },
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
   },

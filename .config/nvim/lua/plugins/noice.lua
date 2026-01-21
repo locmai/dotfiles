@@ -18,13 +18,6 @@ return {
       cmdline = {
         view = "cmdline",
       },
-      cmdline_popup = {
-        view = "cmdline",
-      },
-    },
-    {
-      "folke/snacks.nvim",
-      opts = {},
     },
   },
 }

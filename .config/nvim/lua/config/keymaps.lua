@@ -7,9 +7,6 @@ local opts = { noremap = true, silent = true }
 -- Bind easy : for command
 keymap.set("n", ";", ":")
 
--- Delete a word backwards
--- keymap.set("n", "dw", "vb_d")
-
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 

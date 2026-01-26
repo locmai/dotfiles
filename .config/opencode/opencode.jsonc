@@ -1,0 +1,46 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Theme configuration
+  "theme": "opencode",
+
+  // Auto-update settings
+  "autoupdate": true,
+
+  // TUI settings
+  "tui": {
+    "scroll_speed": 3,
+    "scroll_acceleration": {
+      "enabled": true
+    },
+    "diff_style": "auto"
+  },
+
+  // Sharing settings
+  "share": "manual",
+
+  // Compaction settings
+  "compaction": {
+    "auto": true,
+    "prune": true
+  },
+
+  // MCP servers
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": ["/run/current-system/sw/bin/mcp-server-playwright"]
+    },
+    "kubernetes": {
+      "type": "local",
+      "command": ["/run/current-system/sw/bin/mcp-k8s-go"]
+    },
+    "knowledge": {
+      "type": "local",
+      "command": ["/Users/lmai/Workspaces/knowledge-mcp/target/release/knowledge-mcp"],
+      "environment": {
+        "KNOWLEDGE_VAULT_PATH": "/Users/lmai/notes"
+      }
+    }
+  }
+}

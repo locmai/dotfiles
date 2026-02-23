@@ -1,12 +1,11 @@
 {
   "$schema": "https://opencode.ai/config.json",
-
   // Theme configuration
   "theme": "gruvbox",
-
+  // Default model
+  "model": "anthropic/claude-opus-4-5",
   // Auto-update settings
   "autoupdate": true,
-
   // TUI settings
   "tui": {
     "scroll_speed": 3,
@@ -15,29 +14,37 @@
     },
     "diff_style": "auto"
   },
-
   // Sharing settings
   "share": "manual",
-
   // Compaction settings
   "compaction": {
     "auto": true,
     "prune": true
   },
-
+  // Agents
+  "agent": {
+    "daily-notes": {
+      "description": "Quick note-taking and todo management throughout the day",
+    },
+    "strict-reviewer": {
+      "description": "Strict code reviewer focused on quality and correctness",
+      "reasoningEffort": "high",
+      "textVerbosity": "low"
+    },
+  },
   // MCP servers
   "mcp": {
     "playwright": {
       "type": "local",
-      "command": ["/run/current-system/sw/bin/mcp-server-playwright"]
-    },
-    "kubernetes": {
-      "type": "local",
-      "command": ["/run/current-system/sw/bin/mcp-k8s-go"]
+      "command": [
+        "/run/current-system/sw/bin/mcp-server-playwright"
+      ]
     },
     "knowledge": {
       "type": "local",
-      "command": ["/Users/lmai/Workspaces/knowledge-mcp/target/release/knowledge-mcp"],
+      "command": [
+        "/Users/lmai/Workspaces/knowledge-mcp/target/release/knowledge-mcp"
+      ],
       "environment": {
         "KNOWLEDGE_VAULT_PATH": "/Users/lmai/notes"
       }

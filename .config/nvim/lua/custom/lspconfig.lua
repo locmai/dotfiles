@@ -78,8 +78,6 @@ M.defaults = function()
     "terraformls",
     "omnisharp",
     "ruff",
-    "helm_ls",
-    "yamlls",
   }
 
   for _, lsp in ipairs(servers) do
@@ -89,6 +87,54 @@ M.defaults = function()
       capabilities = M.capabilities,
     })
   end
+
+  -- helm_ls with yamlls integration for Kubernetes schemas
+  lspconfig.helm_ls.setup({
+    on_attach = M.on_attach,
+    on_init = M.on_init,
+    capabilities = M.capabilities,
+    settings = {
+      ["helm-ls"] = {
+        yamlls = {
+          enabled = true,
+          path = "yaml-language-server",
+          config = {
+            schemas = {
+              kubernetes = "*",
+            },
+            completion = true,
+            hover = true,
+          },
+        },
+      },
+    },
+  })
+
+  -- yamlls with Kubernetes schemas, excluding Helm templates
+  lspconfig.yamlls.setup({
+    on_attach = M.on_attach,
+    on_init = M.on_init,
+    capabilities = M.capabilities,
+    filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+    settings = {
+      yaml = {
+        schemas = {
+          kubernetes = "/*.k8s.yaml",
+          ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+          ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+          ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+          ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+          ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+          ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "*.gitlab-ci.{yml,yaml}",
+          ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
+          ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "**/argo-workflows/*.{yml,yaml}",
+        },
+        validate = true,
+        completion = true,
+        hover = true,
+      },
+    },
+  })
 end
 
 return M

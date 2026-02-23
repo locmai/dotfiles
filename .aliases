@@ -13,7 +13,9 @@ alias gA='git add --update'
 alias gc='git commit'
 alias gco='git checkout'
 alias gcob='git checkout -b'
-alias gcom='git checkout master'
+gcom() {
+  git show-ref --verify --quiet refs/heads/main && git checkout main || git checkout master
+}
 alias gp='git push'
 alias gl='git log --decorate --oneline --graph'
 alias gL='git log -p'

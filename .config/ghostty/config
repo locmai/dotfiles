@@ -1,6 +1,7 @@
 # reloaded while running; some only apply to new windows and others may require
 # a full restart to take effect.
 
+command = /run/current-system/sw/bin/zsh
 theme = Gruvbox Dark Hard
 # theme = GitHub Light Default
 keybind = cmd+h=goto_split:left

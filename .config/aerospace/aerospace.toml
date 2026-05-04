@@ -57,7 +57,7 @@ preset = 'qwerty'
 inner.horizontal = 0
 inner.vertical = 0
 outer.left = [{ monitor."LS37D80" = 200 }, 0]
-outer.bottom = [{ monitor."LS37D80" = 150 }, 0]
+outer.bottom = 0
 outer.top = 0
 outer.right = 0
 # inner.horizontal = 7
@@ -207,22 +207,30 @@ if.app-id = 'com.microsoft.AzureVpnMac'
 run = 'layout floating'
 
 [[on-window-detected]]
-check-further-callbacks = true
-run = 'layout tiling'
+if.app-id = 'com.apple.LocalAuthentication.UIAgent'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 1'   # mnemonics W - Web browser
+run = ['layout tiling', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
-run = 'move-node-to-workspace 2' # mnemonics T - Terminal
-
+run = ['layout tiling', 'move-node-to-workspace 2']
 
 [[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace 3'
+if.app-id = 'com.microsoft.Outlook'
+run = ['layout tiling', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'org.whispersystems.signal-desktop'
-run = 'move-node-to-workspace 4'
+run = ['layout tiling', 'move-node-to-workspace 4']
+
+[[on-window-detected]]
+check-further-callbacks = true
+run = 'layout floating'
+
+
+[[on-window-detected]]
+if.app-id = 'zoom.us'
+run = ['layout tiling', 'move-node-to-workspace 3']

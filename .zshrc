@@ -3,6 +3,17 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zmodload zsh/zprof
 fi
 
+# Powerlevel10k instant prompt. Keep near top; nothing above should produce output.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Auto-recompile .zwc bytecode when source edited
+for _f in $HOME/.zshrc $HOME/.p10k.zsh $HOME/.aliases $HOME/.aliases_axon; do
+  [[ -f $_f && ( ! -f $_f.zwc || $_f -nt $_f.zwc ) ]] && zcompile -R $_f
+done
+unset _f
+
 # Plugin manager
 source $HOME/.zsh/zinit/zinit.zsh \
     || (git clone --depth 1 https://github.com/zdharma-continuum/zinit.git $HOME/.zsh/zinit && exec zsh)
@@ -24,16 +35,19 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source ~/.p10k.zsh
 
-
+export BUN_INSTALL="$HOME/.bun"
 export PATH=$PATH:$HOME/google-cloud-sdk/bin:$HOME/go/bin
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/llvm/lib"
 export CPPFLAGS="-I/usr/local/opt/llvm/include"
-
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH=$PATH:$HOME/.local/bin
+
+# Claude Code
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+
 # Aliases
 source $HOME/.aliases
 source $HOME/.aliases_axon
@@ -43,5 +57,6 @@ if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
 
-# source $HOME/random_bullshit.sh
-export PATH=$PATH:/Users/lmai/.local/bin
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

@@ -74,6 +74,14 @@ return {
       window = {
         position = "float",
       },
+      event_handlers = {
+        {
+          event = "neo_tree_buffer_enter",
+          handler = function()
+            vim.cmd([[setlocal relativenumber]])
+          end,
+        },
+      },
     },
     keys = {
       { "<leader>e", "<cmd>Neotree reveal float toggle<cr>" },

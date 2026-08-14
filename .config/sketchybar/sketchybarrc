@@ -1,49 +1,205 @@
+#!/bin/zsh
+
+# sketchybar can be launched (e.g. by aerospace exec-on-workspace-change) with
+# a stripped env lacking USER/PATH. sketchybar-msg requires USER to reach the
+# daemon, so on --reload with no USER set every --add/--set call below
+# silently aborts and the whole bar goes blank.
+export USER="${USER:-$(id -un)}"
+export PATH="/run/current-system/sw/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export LANG="${LANG:-en_US.UTF-8}"
+export LC_ALL="${LC_ALL:-en_US.UTF-8}"
+
+CONFIG_DIR="$(cd "$(dirname "$0")" && pwd)"
+export CONFIG_DIR
 PLUGIN_DIR="$CONFIG_DIR/plugins"
-ITEM_DIR="$CONFIG_DIR/items"
+source "$CONFIG_DIR/colors.sh"
 
-default=(
-  padding_left=2
-  padding_right=2
-  icon.font="FiraCode Nerd Font:Bold:14.0"
-  label.font="FiraCode Nerd Font:Bold:14.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
-  icon.padding_left=4
-  icon.padding_right=4
-  label.padding_left=4
-  label.padding_right=4
-)
+FONT="JetBrainsMono Nerd Font"
+APP_FONT="sketchybar-app-font"
 
-sketchybar --default "${default[@]}"
-sketchybar --add item clock right \
-           --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
-           --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
-           --subscribe volume volume_change \
-           --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change
+# ---------- Bar (glassmorphism + subtle shadow) ----------
+sketchybar --bar \
+  position=top \
+  height=42 \
+  margin=14 \
+  y_offset=10 \
+  corner_radius=16 \
+  blur_radius=30 \
+  color=$BAR_BG \
+  border_width=0 \
+  border_color=$BORDER \
+  shadow=off \
+  sticky=on \
+  topmost=window \
+  padding_left=5 \
+  padding_right=5
 
+# ---------- Defaults ----------
+sketchybar --default \
+  updates=when_shown \
+  icon.font="$FONT:Bold:14.0" \
+  icon.color=$TEXT \
+  icon.padding_left=10 \
+  icon.padding_right=6 \
+  label.font="$FONT:Medium:13.0" \
+  label.color=$TEXT \
+  label.padding_left=3 \
+  label.padding_right=12 \
+  padding_left=4 \
+  padding_right=4 \
+  background.height=32 \
+  background.corner_radius=12 \
+  background.color=$PILL_BG \
+  background.drawing=on \
+  popup.background.color=$POPUP_BG \
+  popup.background.corner_radius=12 \
+  popup.background.border_width=1 \
+  popup.background.border_color=$POPUP_BORDER \
+  popup.background.shadow.drawing=on \
+  popup.blur_radius=30 \
+  popup.y_offset=8
+
+# ---------- Left: Apple + AeroSpace workspaces + Front App ----------
 sketchybar --add event aerospace_workspace_change
 
+sketchybar --add item apple left \
+  --set apple icon=$'\uf8ff' \
+    icon.font="$FONT:Bold:15.0" \
+    icon.color=$MAUVE \
+    icon.padding_left=12 \
+    icon.padding_right=12 \
+    label.drawing=off \
+    background.color=$PILL_BG \
+    click_script="open -a 'Activity Monitor'"
 
-for sid in $(/run/current-system/sw/bin/aerospace list-workspaces --all); do
-    sketchybar --add item space.$sid left \
-        --subscribe space.$sid aerospace_workspace_change \
-        --set space.$sid \
-        label="$sid" \
-        label.align="center" \
-        icon="" \
-        click_script="/run/current-system/sw/bin/aerospace workspace $sid" \
-        script="$PLUGIN_DIR/aerospace.sh $sid"
+# Named desks
+workspace_order=(term web comms misc chat)
+existing=(${(f)"$(/run/current-system/sw/bin/aerospace list-workspaces --all 2>/dev/null)"})
+ordered=()
+for sid in "${workspace_order[@]}"; do
+  (( ${existing[(Ie)$sid]} )) && ordered+=("$sid")
+done
+for sid in "${existing[@]}"; do
+  case "$sid" in terminal|browser|other) continue ;; esac
+  (( ${ordered[(Ie)$sid]} )) || ordered+=("$sid")
 done
 
-sketchybar --add item chevron left \
-           --set chevron icon= label.drawing=off \
-           --add item front_app left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front.sh" \
-           --subscribe front_app front_app_switched
+for sid in "${ordered[@]}"; do
+  sketchybar --add item space.$sid left \
+    --subscribe space.$sid aerospace_workspace_change \
+    --set space.$sid \
+      updates=on \
+      icon="$sid" \
+      icon.font="$FONT:Bold:12.0" \
+      icon.padding_left=12 \
+      icon.padding_right=6 \
+      label.font="$APP_FONT:Regular:13.0" \
+      label.color=$TEXT \
+      label.padding_right=10 \
+      label.drawing=off \
+      background.height=28 \
+      background.corner_radius=10 \
+      click_script="/run/current-system/sw/bin/aerospace workspace $sid" \
+      script="$PLUGIN_DIR/aerospace.sh $sid"
+done
 
-##### Force all scripts to run the first time (never do this in a script) #####
+# Group workspaces into one subtle "island" tray behind the pills
+space_items=()
+for sid in "${ordered[@]}"; do space_items+=("space.$sid"); done
+if (( ${#space_items} )); then
+  sketchybar --add bracket spaces "${space_items[@]}" \
+    --set spaces \
+      background.color=0x30313244 \
+      background.corner_radius=13 \
+      background.height=34
+fi
+
+# Separator
+sketchybar --add item separator left \
+  --set separator \
+    background.drawing=off \
+    icon=│ \
+    icon.font="$FONT:Medium:14.0" \
+    icon.color=$SEPARATOR \
+    icon.padding_left=8 \
+    icon.padding_right=8 \
+    label.drawing=off
+
+# Front app (current focused application with icon)
+sketchybar --add item front_app left \
+  --set front_app \
+    icon.font="$APP_FONT:Regular:14.0" \
+    icon.color=$BLUE \
+    icon.padding_left=10 \
+    icon.padding_right=6 \
+    label.font="$FONT:Bold:13.0" \
+    label.padding_right=12 \
+    label.max_chars=24 \
+    background.drawing=off \
+    script="$PLUGIN_DIR/front_app.sh" \
+  --subscribe front_app front_app_switched
+
+# ---------- Right (clock → system → privacy → volume/battery → media) ----------
+
+sketchybar --add item clock right \
+  --set clock \
+    icon.color=$BLUE \
+    update_freq=30 \
+    click_script="open -a 'Calendar'" \
+    script="$PLUGIN_DIR/clock.sh" \
+
+
+sketchybar --add item system right \
+  --set system \
+    icon.color=$PEACH \
+    update_freq=10 \
+    label.max_chars=48 \
+    click_script="open -a 'Activity Monitor'" \
+    script="$PLUGIN_DIR/system.sh" \
+
+
+sketchybar --add item privacy right \
+  --set privacy \
+    icon.color=$YELLOW \
+    update_freq=5 \
+    label.max_chars=28 \
+    click_script="open -b com.apple.systempreferences /System/Library/PreferencePanes/Security.prefPane" \
+    script="$PLUGIN_DIR/privacy.sh"
+
+sketchybar --add item volume right \
+  --set volume \
+    background.drawing=off \
+    script="$PLUGIN_DIR/volume.sh" \
+  --subscribe volume volume_change
+
+sketchybar --add item battery right \
+  --set battery \
+    update_freq=120 \
+    background.drawing=off \
+    script="$PLUGIN_DIR/battery.sh" \
+  --subscribe battery system_woke power_source_change
+
+sketchybar --add bracket status volume battery \
+  --set status \
+    background.color=$PILL_BG \
+    background.corner_radius=12 \
+    background.height=32
+
+sketchybar --add item media right \
+  --set media \
+    icon=$'\uf001' \
+    icon.font="$FONT:Bold:14.0" \
+    icon.color=$MAUVE \
+    label.max_chars=32 \
+    scroll_texts=on \
+    drawing=off \
+    script="$PLUGIN_DIR/media.sh" \
+  --subscribe media media_change
+
+
+# ---------- Bootstrap ----------
 sketchybar --update
-
+FOCUSED_WS="$(/run/current-system/sw/bin/aerospace list-workspaces --focused 2>/dev/null)"
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="${FOCUSED_WS:-1}"
+sketchybar --trigger volume_change
+sketchybar --trigger front_app_switched

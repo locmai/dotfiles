@@ -18,7 +18,6 @@
   homebrew.casks = [
     "brave-browser"
     "cursor"
-    "ghostty"
     "google-chrome"
     "kitty"
     "logseq"

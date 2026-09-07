@@ -30,7 +30,6 @@
     # Browsers and terminals
     brave
     firefox
-    ghostty
     google-chrome
     kitty
 

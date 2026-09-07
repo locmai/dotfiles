@@ -25,6 +25,7 @@
       home.file = {
         ".claude/CLAUDE.md" = link ".claude/CLAUDE.md";
         ".claude/settings.json" = link ".claude/settings.json";
+        ".claude/settings.local.json" = link ".claude/settings.local.json";
         ".claude/agents" = linkDir ".claude/agents";
         ".claude/skills" = linkDir ".claude/skills";
         ".claude/hooks" = linkDir ".claude/hooks";

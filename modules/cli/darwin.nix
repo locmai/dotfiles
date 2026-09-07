@@ -6,6 +6,11 @@
     pinentry_mac
   ];
 
+  # Linux gets this from programs.gnupg.agent, Darwin needs the file
+  home-manager.users.${config.primaryUser.username}.home.file.".gnupg/gpg-agent.conf".text = ''
+    pinentry-program ${pkgs.pinentry_mac}/bin/pinentry-mac
+  '';
+
   environment.systemPath = [
     "${config.homebrew.prefix}/bin"
   ];

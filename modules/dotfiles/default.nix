@@ -24,10 +24,7 @@ in
       # live anywhere. Fall back to dotfilesRoot relative to home otherwise.
       invocationDir = builtins.getEnv "DOTFILES_DIR";
       repoRoot =
-        if invocationDir != "" then
-          invocationDir
-        else
-          "${config.home.homeDirectory}/${dotfilesRoot}";
+        if invocationDir != "" then invocationDir else "${config.home.homeDirectory}/${dotfilesRoot}";
       checkoutRoot = "${repoRoot}/modules/dotfiles/home";
     in
     {

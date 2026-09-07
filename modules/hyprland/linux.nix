@@ -1,13 +1,18 @@
 { config, pkgs, ... }:
 
+let
+  start-hyprland = pkgs.writeShellScriptBin "start-hyprland" ''
+    exec ${config.programs.hyprland.package}/bin/Hyprland "$@"
+  '';
+in
 {
   programs.hyprland.enable = true;
 
-  # Greeter launches Hyprland directly, there is only ever one session
+  # Greeter launches Hyprland via start-hyprland, there is only ever one session
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I %M %p | %a * %h | %F' --cmd Hyprland";
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I %M %p | %a * %h | %F' --cmd start-hyprland";
       user = "greeter";
     };
   };
@@ -27,6 +32,7 @@
 
   environment.systemPackages = with pkgs; [
     tuigreet
+    start-hyprland
   ];
 
   home-manager.users.${config.primaryUser.username}.home.packages = with pkgs; [

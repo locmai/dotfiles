@@ -44,6 +44,7 @@
       yt-dlp
 
       # Security
+      bitwarden-cli
       openssl
       sslscan
       step-cli
@@ -65,6 +66,7 @@
       cmctl
       helm-ls
       ingress2gateway
+      k3d
       k9s
       kind
       kubectl
@@ -75,6 +77,7 @@
       kubernetes-helmPlugins.helm-unittest
       kustomize
       operator-sdk
+      oras
       skaffold
       thanos
 
@@ -85,6 +88,7 @@
       terragrunt
 
       # Languages
+      dotnet-sdk
       go
       lua
       nodejs_24

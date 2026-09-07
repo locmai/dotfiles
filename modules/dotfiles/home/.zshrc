@@ -36,8 +36,9 @@ HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-# Nix profiles come first so system packages win over anything installed ad hoc
-export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
+# Nix profiles come first so system packages win over anything installed ad hoc.
+# /run/wrappers/bin must precede sw/bin so setuid wrappers (sudo, etc.) resolve first.
+export PATH=/run/wrappers/bin:/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
 export PATH=$PATH:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.local/bin
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"

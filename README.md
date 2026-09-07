@@ -38,9 +38,11 @@ Modules follow the same shape: `default.nix` as the entrypoint, with
 
 Files under `modules/dotfiles/home` are mapped to the same path under `$HOME`.
 They are symlinked to this checkout rather than copied into the Nix store, so
-editing a config applies immediately without a rebuild. The checkout is
-expected at `~/Workspaces/dotfiles`; override `dotfilesRoot` in a host file if
-it lives elsewhere.
+editing a config applies immediately without a rebuild. The checkout location
+is detected automatically from the directory you run `make` in (exported as
+`DOTFILES_DIR` with impure eval), so the repo can live anywhere. When built
+without that variable it falls back to `dotfilesRoot` (default
+`~/Workspaces/dotfiles`), which you can override in a host file.
 
 Adding a new dotfile only requires dropping it in the right place under
 `modules/dotfiles/home` and rebuilding once so the symlink is created.

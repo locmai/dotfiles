@@ -7,7 +7,7 @@ host ?= $(shell hostname -s)
 default: diff switch
 
 build:
-	./scripts/rebuild.py build --flake '.#$(host)'
+	DOTFILES_DIR='$(CURDIR)' ./scripts/rebuild.py build --flake '.#$(host)' --impure
 
 diff: build
 	nix run nixpkgs#dix -- \
@@ -15,7 +15,7 @@ diff: build
 		/nix/var/nix/profiles/system ./result
 
 switch:
-	sudo ./scripts/rebuild.py switch --flake '.#$(host)'
+	sudo DOTFILES_DIR='$(CURDIR)' ./scripts/rebuild.py switch --flake '.#$(host)' --impure
 
 update:
 	nix flake update

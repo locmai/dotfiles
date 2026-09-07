@@ -21,7 +21,6 @@
     "google-chrome"
     "kitty"
     "logseq"
-    "zed"
   ];
 
   system.defaults = {

@@ -5,10 +5,9 @@
     casks = [
       "aws-vpn-client"
       "royal-tsx"
+      "session-manager-plugin"
     ];
     brews = [
-      # Not packaged for Darwin in nixpkgs
-      "session-manager-plugin"
     ];
   };
 

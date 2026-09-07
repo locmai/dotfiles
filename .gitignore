@@ -1,9 +1,9 @@
-*
+/result
+.DS_Store
+*.zwc
 
-!.gitignore
-.config/github-copilot
-!.config/
-Workspace/
-.config/opencode/node_modules
-.config/opencode/bun.lock
-.config/opencode/package.json
+# Generated inside the dotfiles tree
+modules/dotfiles/home/.config/opencode/node_modules/
+modules/dotfiles/home/.config/opencode/bun.lock
+modules/dotfiles/home/.config/opencode/package.json
+modules/dotfiles/home/.config/github-copilot/

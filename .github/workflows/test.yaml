@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  nixos:
+    name: NixOS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build hosts
+        run: |
+          for host in $(nix eval --json --apply builtins.attrNames .#nixosConfigurations | jq -r '.[]'); do
+            nix build ".#nixosConfigurations.\"$host\".config.system.build.toplevel"
+          done
+
+  darwin:
+    name: Darwin
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build hosts
+        run: |
+          for host in $(nix eval --json --apply builtins.attrNames .#darwinConfigurations | jq -r '.[]'); do
+            nix build ".#darwinConfigurations.\"$host\".system"
+          done

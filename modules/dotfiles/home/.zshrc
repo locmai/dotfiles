@@ -9,7 +9,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Auto-recompile .zwc bytecode when source edited
-for _f in $HOME/.zshrc $HOME/.p10k.zsh $HOME/.aliases $HOME/.aliases_axon; do
+for _f in $HOME/.zshrc $HOME/.p10k.zsh $HOME/.aliases $HOME/.aliases_axon $HOME/.sh_functions; do
   [[ -f $_f && ( ! -f $_f.zwc || $_f -nt $_f.zwc ) ]] && zcompile -R $_f
 done
 unset _f
@@ -30,33 +30,32 @@ zinit wait lucid light-mode depth=1 nocd for \
 zinit wait lucid is-snippet for \
     https://github.com/ahmetb/kubectl-aliases/blob/master/.kubectl_aliases \
     https://github.com/junegunn/fzf/blob/master/shell/key-bindings.zsh
+
 # History
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-
+# Nix profiles come first so system packages win over anything installed ad hoc
+export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
+export PATH=$PATH:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.local/bin
 export BUN_INSTALL="$HOME/.bun"
-export PATH=$PATH:$HOME/google-cloud-sdk/bin:$HOME/go/bin
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/llvm/lib"
-export CPPFLAGS="-I/usr/local/opt/llvm/include"
-export PATH="/usr/local/opt/libpq/bin:$PATH"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH=$PATH:$HOME/.local/bin
 
 # Claude Code
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 
-# Aliases
-source $HOME/.aliases
-source $HOME/.aliases_axon
+# Shared shell config. .aliases_axon holds work-only aliases and is not
+# tracked in this repository, so source it only when present.
+for _f in $HOME/.aliases $HOME/.sh_functions $HOME/.aliases_axon; do
+  [[ -f $_f ]] && source $_f
+done
+unset _f
 
 # Run `time ZSH_DEBUGRC=1 zsh -i -c exit` to debug
 if [ -n "${ZSH_DEBUGRC+1}" ]; then
     zprof
 fi
 
-
-# bun completions
+# Completions for tools that manage their own installs
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"

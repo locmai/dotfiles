@@ -5,7 +5,7 @@ start-at-login = true
 
 
 after-startup-command = [
-  'exec-and-forget /run/current-system/sw/bin/sketchybar',
+  # 'exec-and-forget /run/current-system/sw/bin/sketchybar',
 ]
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
@@ -14,9 +14,9 @@ after-login-command = []
 
 # Notify Sketchybar about workspace change
 exec-on-workspace-change = [
-  '/bin/bash',
-  '-c',
-  '/run/current-system/sw/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE; ~/.config/aerospace/route-stray.sh &',
+  # '/bin/bash',
+  # '-c',
+  # '/run/current-system/sw/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE; ~/.config/aerospace/route-stray.sh &',
 ]
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -61,12 +61,16 @@ preset = 'qwerty'
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 5
-inner.vertical = 5
-outer.bottom = 10
-outer.top = [{ monitor."LS37D80" = 60 }, { monitor."S32D850" = 60 }, 22]
-outer.left = [{ monitor."LS37D80" = 16 }, { monitor."S32D850" = 16 }, 10]
-outer.right = [{ monitor."LS37D80" = 16 }, { monitor."S32D850" = 16 }, 10]
+inner.horizontal = 0
+inner.vertical = 0
+outer.bottom = 0
+# outer.top = [{ monitor."LS37D80" = 60 }, { monitor."S32D850" = 60 }, 22]
+outer.top = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 60 }, 0]
+# outer.left = [{ monitor."LS37D80" = 16 }, { monitor."S32D850" = 16 }, 10]
+outer.left = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, 0]
+# outer.right = [{ monitor."LS37D80" = 16 }, { monitor."S32D850" = 16 }, 10]
+outer.right = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, 0]
+
 # inner.horizontal = 7
 # inner.vertical = 7
 # outer.left = 5

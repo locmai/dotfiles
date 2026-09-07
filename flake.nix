@@ -57,9 +57,14 @@
           builder = if platform.isDarwin then darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
           systemModules =
             if platform.isDarwin then
+              # The hostname on Darwin is managed by MDM, setting
+              # networking.hostName here would fight it on every activation
               [ home-manager.darwinModules.home-manager ]
             else
-              [ home-manager.nixosModules.home-manager ];
+              [
+                home-manager.nixosModules.home-manager
+                { networking.hostName = host; }
+              ];
         in
         builder {
           inherit system;
@@ -71,9 +76,6 @@
             ++ systemModules
             ++ extraModules
             ++ [
-              {
-                networking.hostName = host;
-              }
               ./hosts/${host}.nix
             ];
         };

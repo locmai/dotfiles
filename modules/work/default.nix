@@ -22,6 +22,9 @@
     granted
     sops
 
+    # Infrastructure as code
+    pulumi-bin
+
     # Service mesh and observability
     istioctl
     prometheus.cli

@@ -8,6 +8,7 @@
       "session-manager-plugin"
     ];
     brews = [
+      "pinentry"
     ];
   };
 

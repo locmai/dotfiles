@@ -92,6 +92,7 @@
       go
       lua
       nodejs_24
+      pnpm
       python3
       cargo
       rustc

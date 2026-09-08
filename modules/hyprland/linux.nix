@@ -1,18 +1,18 @@
 { config, pkgs, ... }:
 
-let
-  start-hyprland = pkgs.writeShellScriptBin "start-hyprland" ''
-    exec ${config.programs.hyprland.package}/bin/Hyprland "$@"
-  '';
-in
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    # Launch through UWSM so Hyprland runs under a proper systemd session
+    # and stops warning about being started without a session manager.
+    withUWSM = true;
+  };
 
-  # Greeter launches Hyprland via start-hyprland, there is only ever one session
+  # Greeter launches Hyprland via UWSM, there is only ever one session
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I %M %p | %a * %h | %F' --cmd start-hyprland";
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --time-format '%I %M %p | %a * %h | %F' --cmd 'uwsm start hyprland-uwsm.desktop'";
       user = "greeter";
     };
   };
@@ -32,7 +32,6 @@ in
 
   environment.systemPackages = with pkgs; [
     tuigreet
-    start-hyprland
   ];
 
   home-manager.users.${config.primaryUser.username}.home.packages = with pkgs; [

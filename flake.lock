@@ -112,7 +112,28 @@
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "sofka": "sofka"
+      }
+    },
+    "sofka": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1788902172,
+        "narHash": "sha256-lgVen2tJRNT2my+YoeKI+NPSARmKxFokp9TGsoVn93c=",
+        "owner": "nklmilojevic",
+        "repo": "sofka",
+        "rev": "98e24e15f786270726333323d83c67fc8d9f3484",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nklmilojevic",
+        "repo": "sofka",
+        "type": "github"
       }
     }
   },

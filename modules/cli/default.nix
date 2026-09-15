@@ -79,6 +79,7 @@
       operator-sdk
       oras
       skaffold
+      sofka
       thanos
 
       # Infrastructure as code

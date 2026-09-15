@@ -12,7 +12,9 @@ in
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "zap";
+    # "zap" runs `brew cleanup`, which fails on kegs owned by another user
+    # (e.g. /opt/homebrew/Cellar/python@3.14) and aborts activation
+    onActivation.cleanup = "none";
   };
 
   nix.settings = {

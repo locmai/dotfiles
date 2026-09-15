@@ -13,6 +13,10 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sofka = {
+      url = "github:nklmilojevic/sofka";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -22,6 +26,7 @@
       darwin,
       nixos-hardware,
       home-manager,
+      sofka,
       ...
     }:
     let
@@ -42,7 +47,10 @@
       baseModules = [
         ./base
         {
-          nixpkgs.overlays = [ packageOverlay ];
+          nixpkgs.overlays = [
+            packageOverlay
+            sofka.overlays.default
+          ];
         }
       ];
 

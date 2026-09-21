@@ -3,7 +3,12 @@
 
 On a fresh macOS machine, Nix and Homebrew are installed first so that the
 initial `make switch` works from a clean system.
+
+Kept compatible with the macOS system Python (3.9), which is the only
+interpreter available before Nix is installed.
 """
+
+from __future__ import annotations
 
 import os
 import shutil
@@ -48,23 +53,24 @@ def ensure_nix() -> None:
 
 
 def main() -> None:
-    match os.uname().sysname.lower():
-        case "linux":
-            command = ["nixos-rebuild", *sys.argv[1:]]
-        case "darwin":
-            ensure_homebrew()
-            ensure_nix()
-            command = [
-                "/nix/var/nix/profiles/default/bin/nix",
-                "--experimental-features",
-                "nix-command flakes",
-                "run",
-                DARWIN_REBUILD_FLAKE,
-                "--",
-                *sys.argv[1:],
-            ]
-        case platform:
-            raise SystemExit(f"unsupported platform: {platform}")
+    platform = os.uname().sysname.lower()
+
+    if platform == "linux":
+        command = ["nixos-rebuild", *sys.argv[1:]]
+    elif platform == "darwin":
+        ensure_homebrew()
+        ensure_nix()
+        command = [
+            "/nix/var/nix/profiles/default/bin/nix",
+            "--experimental-features",
+            "nix-command flakes",
+            "run",
+            DARWIN_REBUILD_FLAKE,
+            "--",
+            *sys.argv[1:],
+        ]
+    else:
+        raise SystemExit(f"unsupported platform: {platform}")
 
     os.execvp(command[0], command)
 

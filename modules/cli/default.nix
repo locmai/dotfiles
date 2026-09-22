@@ -89,7 +89,6 @@
       terragrunt
 
       # Languages
-      dotnet-sdk
       go
       lua
       nodejs_24
@@ -114,8 +113,7 @@
       jsonfmt
       jsonnet-language-server
       lua-language-server
-      markdown-oxide
-      marksman
+      unstable.marksman
       nixd
       nixfmt
       pyright

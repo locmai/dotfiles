@@ -26,8 +26,6 @@
         ".claude/CLAUDE.md" = link "CLAUDE.md";
         ".claude/settings.json" = link "settings.json";
         ".claude/settings.local.json" = link "settings.local.json";
-        ".claude/agents" = linkDir "agents";
-        ".claude/hooks" = linkDir "hooks";
         ".mcp.json" = link ".mcp.json";
 
         # Pi reads the same instructions as Claude Code

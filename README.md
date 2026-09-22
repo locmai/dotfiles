@@ -17,7 +17,8 @@ live in `~/.aliases_axon`, which is sourced when present but never tracked.
 ## Layout
 
 - `flake.nix`: entrypoint, one output per host
-- `base/`: shared baseline for every host
+- `base/`: shared baseline for every host, plus the `primaryUser` and
+  `dotfilesRoot` options
 - `hosts/`: one file per machine, each importing the modules it needs
   - `hosts/hardware/`: generated hardware configuration for NixOS hosts
 - `modules/`: composable modules that hosts mix and match
@@ -30,9 +31,30 @@ live in `~/.aliases_axon`, which is sourced when present but never tracked.
   - `work`: work-specific packages and casks
 - `pkgs/`: custom packages, exposed as `pkgs.unofficial.<name>`
 - `scripts/rebuild.py`: platform wrapper around `nixos-rebuild` and `darwin-rebuild`
+- `.github/workflows/test.yaml`: builds every host on Linux and macOS runners
 
 Modules follow the same shape: `default.nix` as the entrypoint, with
-`darwin.nix` and `linux.nix` holding platform-specific parts.
+`darwin.nix` and `linux.nix` holding platform-specific parts. `base/` picks the
+platform file from `platform.parsed.kernel.name`.
+
+## Inputs and overlays
+
+The flake tracks the `26.05` releases of nixpkgs, nix-darwin, and
+home-manager, with `nixpkgs-unstable` alongside them. `nixos-hardware` supplies
+the ThinkPad profile, and [`sofka`](https://github.com/nklmilojevic/sofka)
+provides its overlay.
+
+Two overlays are applied to every host:
+
+- `pkgs.unstable.<name>`: the same package from `nixpkgs-unstable`
+- `pkgs.unofficial.<name>`: packages defined in `pkgs/`
+
+## Host options
+
+Each host file sets `primaryUser.username`; `primaryUser.fullName` defaults to
+`Loc Mai` and `primaryUser.authorizedKeys` to an empty list. `dotfilesRoot` is
+the checkout path relative to `$HOME` and is only used when `DOTFILES_DIR` is
+not set.
 
 ## Dotfiles
 
@@ -42,7 +64,8 @@ editing a config applies immediately without a rebuild. The checkout location
 is detected automatically from the directory you run `make` in (exported as
 `DOTFILES_DIR` with impure eval), so the repo can live anywhere. When built
 without that variable it falls back to `dotfilesRoot` (default
-`~/Workspaces/dotfiles`), which you can override in a host file.
+`Workspaces/dotfiles`, relative to `$HOME`), which you can override in a host
+file.
 
 Adding a new dotfile only requires dropping it in the right place under
 `modules/dotfiles/home` and rebuilding once so the symlink is created.
@@ -72,6 +95,14 @@ make check     # nix flake check
 make clean     # collect garbage older than 30 days
 make optimise  # deduplicate the Nix store
 ```
+
+`build` and `switch` run with `--impure` so the dotfiles module can read
+`DOTFILES_DIR`. Garbage collection and store optimisation also run
+automatically through `nix.gc` and `nix.optimise`.
+
+Nix files are formatted with `nixfmt` (RFC style): run `make fmt` before
+committing, and `make check` plus a `make build` for the affected host to
+validate a change.
 
 ## Installation
 

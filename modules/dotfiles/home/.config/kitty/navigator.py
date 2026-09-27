@@ -1,15 +1,15 @@
 """Select an agent window. List agents that need user action first."""
 
+from __future__ import annotations
+
 import json
 import os
 import re
+import shlex
 import subprocess
+import sys
 import traceback
 from functools import cache
-
-from kitty.boss import Boss
-from kitty.constants import kitten_exe
-from kittens.tui.handler import kitten_ui, result_handler
 
 # macOS GUI applications start with a minimal PATH.
 os.environ["PATH"] = os.pathsep.join(
@@ -39,13 +39,24 @@ STATE_STYLES = {
     "working": ("33", "●"),
 }
 
+# Seconds between refreshes of the agent list while the picker is open.
+REFRESH_INTERVAL = 1
+
+# Remote control goes through the kitten API when running inside kitty, and
+# through the `kitten @` binary when re-executed as the fzf reload helper.
+IN_KITTY = True
+KITTEN = "kitten"
+
 
 def ansi(color: str, text: str) -> str:
     return f"\x1b[{color}m{text}\x1b[0m"
 
 
 def kitty(args: list[str]) -> str:
-    result = main.remote_control(args, capture_output=True)
+    if IN_KITTY:
+        result = main.remote_control(args, capture_output=True)
+    else:
+        result = subprocess.run([KITTEN, "@", *args], capture_output=True)
     if result.returncode != 0:
         error = result.stderr.decode().strip()
         raise RuntimeError(f"kitten @ {' '.join(args)} failed: {error}")
@@ -109,6 +120,28 @@ def format_row(window: dict, state: str, agent: str) -> str:
     return f"{window['id']}\t{status}  {project}  {ansi('2', agent)}"
 
 
+def render_rows(tabs: list[dict]) -> str:
+    return "\n".join(format_row(*agent) for agent in collect_agents(tabs))
+
+
+def focused_tabs() -> list[dict]:
+    [os_window] = json.loads(kitty(["ls", "--match", "state:focused_os_window"]))
+    return os_window["tabs"]
+
+
+# Re-executed by fzf as `navigator.py --list <kitten>` on a timer, so the state
+# column keeps up with the sessions instead of freezing at the first render.
+if "--list" in sys.argv:
+    IN_KITTY = False
+    KITTEN = sys.argv[sys.argv.index("--list") + 1]
+    print(render_rows(focused_tabs()))
+    raise SystemExit(0)
+
+from kitty.boss import Boss  # noqa: E402
+from kitty.constants import kitten_exe  # noqa: E402
+from kittens.tui.handler import kitten_ui, result_handler  # noqa: E402
+
+
 def layout_spec(tab: dict) -> str:
     # kitty reports the layout name and its options separately; goto-layout needs
     # them recombined or options like split_axis are lost on restore.
@@ -124,13 +157,14 @@ def restore_layout(boss: Boss, tab_id: int, layout: str) -> None:
 
 
 def pick_agent() -> str:
-    [os_window] = json.loads(kitty(["ls", "--match", "state:focused_os_window"]))
-    tabs = os_window["tabs"]
-
-    # Screen detection and previews need access to all Kitty windows.
+    # Screen detection, previews, and the refresh helper need access to all
+    # Kitty windows.
     main.allow_indiscriminate_remote_control()
-    agents = collect_agents(tabs)
+    tabs = focused_tabs()
 
+    reload_command = " ".join(
+        shlex.quote(part) for part in ("python3", __file__, "--list", kitten_exe())
+    )
     active_tab = next(tab for tab in tabs if tab["is_active"])
     previous_layout = layout_spec(active_tab)
     tab_match = ["--match", f"id:{active_tab['id']}"]
@@ -147,12 +181,18 @@ def pick_agent() -> str:
             "--no-separator",
             "--no-scrollbar",
             "--prompt=agent> ",
+            # Keep the highlighted agent selected across refreshes, even when
+            # its state changes and the list reorders.
+            "--track",
             f"--preview={kitten_exe()} @ get-text --match=id:{{1}} --ansi",
             "--preview-window=up,follow",
+            # fzf has no timer event: chain a delayed reload off every load so
+            # the rows and the preview keep refreshing while the picker is open.
+            f"--bind=load:refresh-preview+reload:sleep {REFRESH_INTERVAL}; {reload_command}",
         ],
         stdout=subprocess.PIPE,
         pass_fds=(main.rc_fd,),
-        input="\n".join(format_row(*agent) for agent in agents),
+        input=render_rows(tabs),
         text=True,
     )
 

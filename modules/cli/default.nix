@@ -65,7 +65,6 @@
       argocd
       cmctl
       helm-ls
-      ingress2gateway
       k3d
       kind
       kubectl

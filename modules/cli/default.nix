@@ -67,7 +67,6 @@
       helm-ls
       ingress2gateway
       k3d
-      k9s
       kind
       kubectl
       kubectl-tree
@@ -131,8 +130,6 @@
     ++ (with pkgs.unstable; [
       # AI agents, tracked on unstable so they stay current
       claude-code
-      codex
-      opencode
       pi-coding-agent
 
       # MCP servers

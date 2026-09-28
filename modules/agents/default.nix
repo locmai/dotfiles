@@ -31,6 +31,8 @@
         # Pi reads the same instructions as Claude Code
         ".pi/agent/AGENTS.md" = link "CLAUDE.md";
         ".pi/agent/settings.json" = link "pi/settings.json";
+        # pi-mcp-adapter reads mcp-adapter.json, not the old mcp.json path
+        ".pi/agent/mcp-adapter.json" = link "pi/mcp-adapter.json";
         ".pi/agent/themes" = linkDir "pi/themes";
       };
 

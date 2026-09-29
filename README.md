@@ -22,7 +22,7 @@ live in `~/.aliases_axon`, which is sourced when present but never tracked.
 - `hosts/`: one file per machine, each importing the modules it needs
   - `hosts/hardware/`: generated hardware configuration for NixOS hosts
 - `modules/`: composable modules that hosts mix and match
-  - `agents`: Claude Code and Pi configuration, linked from `~/Workspaces/agent-setup`
+  - `agents`: Claude Code and Pi configuration, linked from `~/projects/lmai/agent-setup`
   - `cli`: shell tools, language servers, Kubernetes and IaC tooling
   - `dotfiles`: the actual config files under `modules/dotfiles/home`
   - `gui`: desktop applications, fonts, and system defaults
@@ -64,7 +64,7 @@ editing a config applies immediately without a rebuild. The checkout location
 is detected automatically from the directory you run `make` in (exported as
 `DOTFILES_DIR` with impure eval), so the repo can live anywhere. When built
 without that variable it falls back to `dotfilesRoot` (default
-`Workspaces/dotfiles`, relative to `$HOME`), which you can override in a host
+`projects/locmai/dotfiles`, relative to `$HOME`), which you can override in a host
 file.
 
 Adding a new dotfile only requires dropping it in the right place under
@@ -110,7 +110,7 @@ validate a change.
 
 1. Allow Full Disk Access for the terminal in
    `Settings > Privacy & Security > Full Disk Access`
-2. Clone this repository to `~/Workspaces/dotfiles`
+2. Clone this repository to `~/projects/locmai/dotfiles`
 3. Run `make switch`, which installs Nix and Homebrew if they are missing
 4. Reboot
 

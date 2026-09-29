@@ -30,7 +30,7 @@
 
     dotfilesRoot = lib.mkOption {
       type = lib.types.str;
-      default = "Workspaces/dotfiles";
+      default = "projects/locmai/dotfiles";
       description = ''
         Path of this repository relative to the primary user's home directory.
         The dotfiles module symlinks into this checkout instead of the Nix

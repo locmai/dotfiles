@@ -1,3 +1,6 @@
-[user]
-	name = Loc Mai
-	email = locmai0201@gmail.com
+[includeIf "gitdir:~/projects/locmai/"]
+  path = .gitconfig-locmai
+[includeIf "gitdir:~/projects/lmai/"]
+  path = .gitconfig-lmai
+[includeIf "gitdir:~/projects/lmai_axoncorp/"]
+  path = .gitconfig-lmai-axoncorp

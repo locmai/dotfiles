@@ -7,7 +7,7 @@
     let
       # Agent configuration lives in its own repository so it can be shared with
       # non-Nix machines. Symlink into that checkout when it is present.
-      agentSetup = "${config.home.homeDirectory}/Workspaces/agent-setup";
+      agentSetup = "${config.home.homeDirectory}/projects/lmai/agent-setup";
 
       link = path: {
         force = true;

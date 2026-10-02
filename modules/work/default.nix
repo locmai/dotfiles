@@ -26,7 +26,7 @@
     pulumi-bin
 
     # Service mesh and observability
-    istioctl
+    unstable.istioctl
     prometheus.cli
 
     # Issue tracking

@@ -13,6 +13,14 @@ alias gA='git add --update'
 alias gc='git commit'
 alias gco='git checkout'
 alias gcob='git checkout -b'
+alias q='pi --model claude-haiku-4-5 -p'
+f() {
+  local input="$*"
+  [ -z "$input" ] && input="$(cat)"
+  pi --model claude-haiku-4-5 -nt --no-session -p "Refine this text, fix grammar and typos, do not use em dash. Output only the refined text, nothing else.
+
+$input"
+}
 gcom() {
   git show-ref --verify --quiet refs/heads/main && git checkout main || git checkout master
 }

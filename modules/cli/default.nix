@@ -73,6 +73,7 @@
       kubectx
       kubernetes-helm
       kubernetes-helmPlugins.helm-unittest
+      unstable.kubie
       kustomize
       operator-sdk
       oras

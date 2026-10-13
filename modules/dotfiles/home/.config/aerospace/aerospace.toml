@@ -65,11 +65,11 @@ inner.horizontal = 0
 inner.vertical = 0
 outer.bottom = 0
 # outer.top = [{ monitor."LS37D80" = 60 }, { monitor."S32D850" = 60 }, 22]
-outer.top = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 60 }, 0]
+outer.top = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 60 }, { monitor."LG ULTRAGEAR" = 0 }, 0]
 # outer.left = [{ monitor."LS37D80" = 16 }, { monitor."S32D850" = 16 }, 10]
-outer.left = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, 0]
+outer.left = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, { monitor."LG ULTRAGEAR" = 0 }, 0]
 # outer.right = [{ monitor."LS37D80" = 16 }, { monitor."S32D850" = 16 }, 10]
-outer.right = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, 0]
+outer.right = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, { monitor."LG ULTRAGEAR" = 0 }, 0]
 
 # inner.horizontal = 7
 # inner.vertical = 7
@@ -77,6 +77,16 @@ outer.right = [{ monitor."LS37D80" = 0 }, { monitor."S32D850" = 16 }, 0]
 # outer.bottom = 5
 # outer.top = 40
 # outer.right = 5
+# Pin workspaces 1-4 to the LG when connected, otherwise fall back to the main monitor
+# See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[workspace-to-monitor-force-assignment]
+1 = ['LG ULTRAGEAR', 'main']
+2 = ['LG ULTRAGEAR', 'main']
+3 = ['LG ULTRAGEAR', 'main']
+4 = ['LG ULTRAGEAR', 'main']
+5 = ['built-in', 'main']
+6 = ['built-in', 'main']
+
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
@@ -235,7 +245,11 @@ run = ['layout floating', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.app-id = 'org.whispersystems.signal-desktop'
-run = ['layout tiling', 'move-node-to-workspace 4']
+run = ['layout tiling', 'move-node-to-workspace 5']
+
+[[on-window-detected]]
+if.app-id = 'org.mozilla.firefox'
+run = ['layout tiling', 'move-node-to-workspace 5']
 
 [[on-window-detected]]
 check-further-callbacks = true

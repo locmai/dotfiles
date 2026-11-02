@@ -10,6 +10,13 @@
     ./${platform.parsed.kernel.name}.nix
   ];
 
+  # Service rather than a bare package: the CLI is useless without tailscaled.
+  # Unstable keeps the client close to the coordination server's version.
+  services.tailscale = {
+    enable = true;
+    package = pkgs.unstable.tailscale;
+  };
+
   home-manager.users.${config.primaryUser.username}.home.packages =
     (with pkgs; [
       # Shell and file utilities

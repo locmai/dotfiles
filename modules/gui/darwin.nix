@@ -13,6 +13,12 @@
 
     # Keyboard firmware
     qmk
+
+    # Rex Beta is installed manually and ships its CLI inside the app bundle.
+    # Exec it in place since it is versioned with the app it talks to.
+    (writeShellScriptBin "rex" ''
+      exec "/Applications/Rex Beta.app/Contents/Helpers/Rex Server.rex/Contents/MacOS/rex" "$@"
+    '')
   ];
 
   homebrew.casks = [

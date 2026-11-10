@@ -236,6 +236,10 @@ if.app-id = 'net.kovidgoyal.kitty'
 run = ['layout tiling', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
+if.app-id = 'com.superlogical.rex'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
 if.app-id = 'com.brave.Browser'
 run = ['layout tiling', 'move-node-to-workspace 2']
 
